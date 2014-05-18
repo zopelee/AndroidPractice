@@ -25,7 +25,6 @@ public class Bird extends GameObject2{
 		state=STATE_READY;
 	}
 
-	
 	@Override
 	public void update(float deltaTime) {
 		super.update(deltaTime);
