@@ -19,6 +19,8 @@ public class Assets {
 	public static Texture2 ui01;
 	public static TextureRegion2 ui01BtnPauseRegion;
 	public static TextureRegion2 ui01BtnResumeRegion;
+	public static Texture2 ui03;
+	public static TextureRegion2 ui03Region;
 	
 	public static Texture2 pigBody01;
 	public static Animation2 pigBody01AnimCrawl;
@@ -47,13 +49,16 @@ public class Assets {
 	public static Music2 activeBgm;
 	
 	public static Music2 bgm01;
-	public static Sound2 gulp;
-	public static Sound2 laugh;
+	public static Sound2 oink_02;
+	public static Sound2 oink_01;
+	public static Sound2 chirp;
 
 	public static Font font;
 	
 	public static List<Texture2> tipTexts=new ArrayList<Texture2>();
 	public static List<TextureRegion2> tipTextRegions=new ArrayList<TextureRegion2>();
+	public static Texture2 tmpText;
+	public static TextureRegion2 tmpTextRegion;
 	
 	public static void load(GLGame2 game){
 		Log.d("aaa", "start loading assets!");
@@ -61,15 +66,21 @@ public class Assets {
 		tipTextRegions.clear();
 		tipTexts.add(new Texture2(game, "Hi!", 32, 32*4, 0, Color.TRANSPARENT, 0.1f,0.1f,0.1f,1));
 		tipTextRegions.add(new TextureRegion2(tipTexts.get(tipTexts.size()-1), 0, 0, tipTexts.get(tipTexts.size()-1).width, tipTexts.get(tipTexts.size()-1).height));
-		tipTexts.add(new Texture2(game, "Hello!", 32, 32*4, 0, Color.TRANSPARENT, 0.1f,0.1f,0.1f,1));
+		tipTexts.add(new Texture2(game, "Hug!", 32, 32*4, 0, Color.TRANSPARENT, 0.1f,0.1f,0.1f,1));
 		tipTextRegions.add(new TextureRegion2(tipTexts.get(tipTexts.size()-1), 0, 0, tipTexts.get(tipTexts.size()-1).width, tipTexts.get(tipTexts.size()-1).height));
+		tipTexts.add(new Texture2(game, "Friendship:", 32, 0, 0, Color.TRANSPARENT, 0.9f,0.9f,0.6f,1));
+		tipTextRegions.add(new TextureRegion2(tipTexts.get(tipTexts.size()-1), 0, 0, tipTexts.get(tipTexts.size()-1).width, tipTexts.get(tipTexts.size()-1).height));
+		tmpText=new Texture2(game, "0", 32, 0, 0, Color.TRANSPARENT, 0.9f,0.9f,0.6f,1);
+		tmpTextRegion=new TextureRegion2(tmpText, 0, 0, tmpText.width, tmpText.height);
 		
-		bkg=new Texture2(game, "room_02.jpg");
+		bkg=new Texture2(game, "sty_01.jpg");
 		bkgRegion=new TextureRegion2(bkg,0,0,bkg.width,bkg.height);
 		
 		ui01=new Texture2(game, "ui_01.png");
 		ui01BtnPauseRegion=new TextureRegion2(ui01, 2*80*1, 0, 2*80, ui01.height);
 		ui01BtnResumeRegion=new TextureRegion2(ui01, 2*80*0, 0, 2*80, ui01.height);
+		ui03=new Texture2(game, "ui_03.png");
+		ui03Region=new TextureRegion2(ui03, 0, 0, ui03.width, ui03.height);
 		
 		pigBody01=new Texture2(game, "pig_body_01.png");
 		pigBody01AnimCrawl=new Animation2(0.2f, 
@@ -223,17 +234,22 @@ public class Assets {
 		birdRegion=new TextureRegion2(bird, 0, 0, 3*80, bird.height);
 		
 		bgm01=game.getAudio().newMusic("audio/bgm_01.mid");
-		bgm01.setLooping(false);
+		bgm01.setLooping(true);
 		bgm01.setVolume(0.5f);
 		bgm01.setBpm(135);
 		
-		gulp=game.getAudio().newSound("audio/gulp.ogg");
-		laugh=game.getAudio().newSound("audio/laugh.ogg");
+		oink_01=game.getAudio().newSound("audio/oink_01.ogg");
+		oink_02=game.getAudio().newSound("audio/oink_02.ogg");
+		chirp=game.getAudio().newSound("audio/chirp.ogg");
 	}
 	
 	public static void reload(){
+		for(int i=0; i<tipTexts.size(); i++){
+			tipTexts.get(i).reload();
+		}
 		bkg.reload();
 		ui01.reload();
+		ui03.reload();
 		pigBody01.reload();
 		pigBody02.reload();
 		pigBody03.reload();

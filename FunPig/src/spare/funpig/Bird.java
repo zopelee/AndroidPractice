@@ -69,5 +69,6 @@ public class Bird extends GameObject2{
 	public void catched(){
 		state=STATE_CATCHED;
 		stateTime=0;
+		Assets.chirp.play(0.8f);
 	}
 }

@@ -2,10 +2,12 @@
 
 import javax.microedition.khronos.opengles.GL10;
 
+import android.graphics.Color;
 import spare.funlibrary.framework.gl.Animation2;
 import spare.funlibrary.framework.gl.Camera2D2;
 import spare.funlibrary.framework.gl.ShapeBatcher;
 import spare.funlibrary.framework.gl.SpriteBatcher2;
+import spare.funlibrary.framework.gl.Texture2;
 import spare.funlibrary.framework.gl.TextureRegion2;
 import spare.funlibrary.framework.impl.GLGraphics;
 

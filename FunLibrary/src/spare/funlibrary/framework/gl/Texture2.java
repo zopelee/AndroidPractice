@@ -54,8 +54,8 @@ public class Texture2 {
 		this(glGame, string, textSize, 0, 0, bkgColor, r, g, b, a);
 	}
 	
-	public Texture2(GLGame2 glGame, String string, int textSize, int maxPxPerLine, int lineSpacing, int bkgColor, float r, float g, float b, float a) {
-		this.glGraphics=glGame.getGLGraphics();
+	public Texture2(GLGraphics glGraphics, String string, int textSize, int maxPxPerLine, int lineSpacing, int bkgColor, float r, float g, float b, float a) {
+		this.glGraphics=glGraphics;
 		this.string=string;
 		this.textSize=textSize;
 		this.maxLineWidth=maxPxPerLine;
@@ -66,6 +66,10 @@ public class Texture2 {
 		this.b=(int)(b*255);
 		this.a=(int)(a*255);
 		load();
+	}
+	
+	public Texture2(GLGame2 glGame, String string, int textSize, int maxPxPerLine, int lineSpacing, int bkgColor, float r, float g, float b, float a) {
+		this((GLGraphics) ((GLGame2)glGame).getGLGraphics(),string, textSize, maxPxPerLine, lineSpacing,bkgColor,r,g,b,a);
 	}
 	
 	private void load() {

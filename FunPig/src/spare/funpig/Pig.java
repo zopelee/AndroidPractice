@@ -173,19 +173,20 @@ public class Pig extends GameObject2{
 	public void sayHello(){
 		state=STATE_HELLO;
 		stateTime=0;
-		Assets.laugh.play(0.5f);
+		Assets.oink_01.play(0.8f);
 	}
 	
 	public void jump(){
 		state=STATE_JUMP;
 		stateTime=0;
-		Assets.laugh.stop();
+		Assets.oink_01.stop();
 	}
 	
 	public void catching(){
 		position.set(positionCopy).add(0, JUMP_HEIGHT);
 		state=STATE_CATCH;
 		stateTime=0;
+		Assets.oink_02.play(0.8f);
 	}
 	
 	public void resetStateTimes(){

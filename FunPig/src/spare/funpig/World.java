@@ -29,6 +29,8 @@ public class World {
 	public int lastTipIndex;
 	
 	public int state;
+	public int score=0;
+	public int lastScore=0;
 	
 	public float bgmStateTime=0;
 	public float runningStateTime=0;
@@ -82,11 +84,16 @@ public class World {
 	}
 	
 	private void updateCallout(float deltaTime){
-		callout.position.set(pig.positionCopy.x, pig.positionCopy.y+1);
 		callout.update(deltaTime);
 		switch (pig.state) {
 		case Pig.STATE_HELLO:
+			callout.position.set(pig.positionCopy.x, pig.positionCopy.y+1);
 			tipIndex=0;
+			callout.fadeIn(3);
+			break;
+		case Pig.STATE_CATCH:
+			callout.position.set(pig.position.x, pig.position.y+2);
+			tipIndex=1;
 			callout.fadeIn(3);
 			break;
 		default:
@@ -98,9 +105,11 @@ public class World {
 	private void checkCatch() {
 		if(pig.state==Pig.STATE_JUMP && bird.state==Bird.STATE_FLY){
 			if(OverlapTester.overlapRectangles(pig.bounds, bird.bounds)){
+				lastScore=score;
+				score++;
 				pig.catching();
 				bird.catched();
-				bird.positionCopy.x=pig.position.x;
+				bird.positionCopy.x=pig.position.x+pig.direction*0.2f;
 			}
 		}
 	}

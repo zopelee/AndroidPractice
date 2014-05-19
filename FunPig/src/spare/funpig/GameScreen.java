@@ -4,12 +4,15 @@ import java.util.List;
 
 import javax.microedition.khronos.opengles.GL10;
 
+import android.graphics.Color;
 import spare.funlibrary.framework.Game;
 import spare.funlibrary.framework.Input2.GestureEvent;
 import spare.funlibrary.framework.Input2.TouchEvent;
 import spare.funlibrary.framework.gl.Camera2D2;
 import spare.funlibrary.framework.gl.ShapeBatcher;
 import spare.funlibrary.framework.gl.SpriteBatcher2;
+import spare.funlibrary.framework.gl.Texture2;
+import spare.funlibrary.framework.gl.TextureRegion2;
 import spare.funlibrary.framework.impl.GLScreen2;
 import spare.funlibrary.framework.math.OverlapTester;
 import spare.funlibrary.framework.math.Rectangle;
@@ -50,8 +53,8 @@ public class GameScreen extends GLScreen2 {
 			}
 		};
 		
-		pauseBtnBound=new Rectangle(320, 480, 160, 160);
-		resumeBtnBound=new Rectangle(320, 480, 160, 160);
+		pauseBtnBound=new Rectangle(400, 560, 80, 80);
+		resumeBtnBound=new Rectangle(400, 560, 80, 80);
 		exitBtnBound=new Rectangle(80, 200, 320, 120);
 		
 		Assets.lastBgm=Assets.activeBgm;
@@ -117,9 +120,6 @@ public class GameScreen extends GLScreen2 {
 					state=GAME_RUNNING;
 					Assets.activeBgm.play();
 					return;
-				}else if(OverlapTester.pointInRectangle(exitBtnBound, touchPoint)==true){
-					Assets.activeBgm.stop();
-					game.setScreen(new LoadingScreen(game));
 				}
 			}
 		}
@@ -134,6 +134,27 @@ public class GameScreen extends GLScreen2 {
 		guiCam.setViewportAndMatrices();
 		gl.glEnable(GL10.GL_BLEND);
 		gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+		
+		batcher.beginBatch(Assets.ui03);
+		batcher.drawSprite(480/2-100, 600, 280, 60, 
+				Assets.ui03Region, 1);
+		batcher.endBatch();
+		batcher.beginBatch(Assets.tipTexts.get(2));
+		batcher.drawSprite(480/2-130, 600, 0, 40, 
+				Assets.tipTextRegions.get(2), 1);
+		batcher.endBatch();
+		
+		if(world.score!=world.lastScore){
+			String strScore="+"+Integer.toString(world.score);
+			Assets.tmpText.dispose();
+			Assets.tmpText=new Texture2(glGraphics, strScore, 32, 0, 0, Color.TRANSPARENT, 0.9f,0.9f,0.6f,1);
+			Assets.tmpTextRegion=new TextureRegion2(Assets.tmpText, 0, 0, Assets.tmpText.width, Assets.tmpText.height);
+		}
+		batcher.beginBatch(Assets.tmpText);
+		batcher.drawSprite(480/2, 600, 0, 40, 
+				Assets.tmpTextRegion, 1);
+		batcher.endBatch();
+		
 		switch(state){
 		case GAME_RUNNING:
 			presentRunning();
@@ -147,13 +168,13 @@ public class GameScreen extends GLScreen2 {
 	
 	private void presentRunning() {
 		batcher.beginBatch(Assets.ui01);
-		batcher.drawSprite(400, 560, 160, 160, Assets.ui01BtnPauseRegion);
+		batcher.drawSprite(440, 600, 80, 80, Assets.ui01BtnPauseRegion);
 		batcher.endBatch();
 	}
 	
 	private void presentPaused(){
 		batcher.beginBatch(Assets.ui01);
-		batcher.drawSprite(400, 560, 160, 160, Assets.ui01BtnResumeRegion);
+		batcher.drawSprite(440, 600, 80, 80, Assets.ui01BtnResumeRegion);
 		batcher.endBatch();
 	}
 
