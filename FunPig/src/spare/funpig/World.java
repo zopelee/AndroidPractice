@@ -25,6 +25,7 @@ public class World {
 	public final Pig pig;
 	public final Bird bird;
 	public final Callout callout;
+	public final Finger finger;
 	public int tipIndex;
 	public int lastTipIndex;
 	
@@ -38,12 +39,15 @@ public class World {
 	public List<Integer> scoreCriteria=new ArrayList<Integer>();
 	public List<Integer> hitScores=new ArrayList<Integer>();
 	public Vector2 lastPigPosition=new Vector2();
+	public boolean firstTimeTouch=true;
+	public boolean firstTimeFlip=true;
 	
 	public World(WorldListener listener) {
 		state=STATE_RUNNING;
 		pig=new Pig(3,PIG_Y);
 		bird=new Bird(-2, 1+4, Bird.WIDTH, Bird.HEIGHT);
 		callout=new Callout(3, 3, 1f, 0.5f, 0.2f, 2.8f, 2.5f, 0.5f, 0.9f, 0.9f, 0.9f);
+		finger=new Finger(2, -1, Finger.WIDTH, Finger.HEIGHT);
 		tipIndex=-1;
 		scoreCriteria=Arrays.asList(-2,-1,0,1,2);
 		beatPieceSlotSwitcher=new SlotSwitcher(Arrays.asList(
@@ -62,6 +66,7 @@ public class World {
 		updatePig(deltaTime);
 		updateBird(deltaTime);
 		updateCallout(deltaTime);
+		updateFinger(deltaTime);
 		checkCatch();
 	}
 	
@@ -100,6 +105,20 @@ public class World {
 			callout.fadeOut(3);
 			break;
 		}
+	}
+	
+	private void updateFinger(float deltaTime) {
+		if(firstTimeTouch==true && bgmStateTime>3){
+			finger.state=Finger.STATE_TOUCH;
+			finger.stateTime=0;
+			firstTimeTouch=false;
+		}
+		if(firstTimeFlip==true && bgmStateTime>9){
+			finger.state=Finger.STATE_FLIP;
+			finger.stateTime=0;
+			firstTimeFlip=false;
+		}
+		finger.update(deltaTime);
 	}
 	
 	private void checkCatch() {

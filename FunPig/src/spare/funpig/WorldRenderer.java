@@ -2,12 +2,10 @@
 
 import javax.microedition.khronos.opengles.GL10;
 
-import android.graphics.Color;
 import spare.funlibrary.framework.gl.Animation2;
 import spare.funlibrary.framework.gl.Camera2D2;
 import spare.funlibrary.framework.gl.ShapeBatcher;
 import spare.funlibrary.framework.gl.SpriteBatcher2;
-import spare.funlibrary.framework.gl.Texture2;
 import spare.funlibrary.framework.gl.TextureRegion2;
 import spare.funlibrary.framework.impl.GLGraphics;
 
@@ -72,6 +70,7 @@ public class WorldRenderer {
 		//premultiplied
 		
 		renderPig();
+		renderFinger();
 		
 		gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
 		renderCallout();
@@ -225,5 +224,13 @@ public class WorldRenderer {
 					0.8f, 0, Assets.tipTextRegions.get(world.tipIndex), world.callout.alphaChnl);
 			batcher.endBatch();
 		}
+	}
+	
+	private void renderFinger() {
+		batcher.beginBatch(Assets.ui02);
+		batcher.drawSprite(world.finger.position.x, world.finger.position.y, 
+				Assets.ui02FingerRegion, virtualRatio, 
+				world.finger.zoom, world.finger.zoom);
+		batcher.endBatch();
 	}
 }

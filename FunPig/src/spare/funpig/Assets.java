@@ -19,6 +19,8 @@ public class Assets {
 	public static Texture2 ui01;
 	public static TextureRegion2 ui01BtnPauseRegion;
 	public static TextureRegion2 ui01BtnResumeRegion;
+	public static Texture2 ui02;
+	public static TextureRegion2 ui02FingerRegion;
 	public static Texture2 ui03;
 	public static TextureRegion2 ui03Region;
 	
@@ -79,6 +81,8 @@ public class Assets {
 		ui01=new Texture2(game, "ui_01.png");
 		ui01BtnPauseRegion=new TextureRegion2(ui01, 2*80*1, 0, 2*80, ui01.height);
 		ui01BtnResumeRegion=new TextureRegion2(ui01, 2*80*0, 0, 2*80, ui01.height);
+		ui02=new Texture2(game, "ui_02.png");
+		ui02FingerRegion=new TextureRegion2(ui02, 0, 0, ui02.width, ui02.height);
 		ui03=new Texture2(game, "ui_03.png");
 		ui03Region=new TextureRegion2(ui03, 0, 0, ui03.width, ui03.height);
 		
@@ -244,11 +248,13 @@ public class Assets {
 	}
 	
 	public static void reload(){
+		tmpText.reload();
 		for(int i=0; i<tipTexts.size(); i++){
 			tipTexts.get(i).reload();
 		}
 		bkg.reload();
 		ui01.reload();
+		ui02.reload();
 		ui03.reload();
 		pigBody01.reload();
 		pigBody02.reload();
