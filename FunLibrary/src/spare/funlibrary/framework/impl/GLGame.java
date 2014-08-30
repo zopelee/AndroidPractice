@@ -13,11 +13,8 @@ import android.app.Activity;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLSurfaceView.Renderer;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.RelativeLayout;
 
 public abstract class GLGame extends Activity implements Game, Renderer {
 
@@ -47,6 +44,7 @@ public abstract class GLGame extends Activity implements Game, Renderer {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 							 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		glView=new GLSurfaceView(this);
+		glView.setEGLConfigChooser(8 , 8, 8, 8, 16, 0);
 		glView.setRenderer(this);
 		setContentView(glView);
 		
